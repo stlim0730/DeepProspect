@@ -1,0 +1,171 @@
+#scrapper [17:05:02] - reading baseball players' data whose last names start with a
+#scrapper [17:10:22] - processed 235 pitchers
+#scrapper [17:10:22] - processed 3187 pitcher records
+#scrapper [17:10:22] - processed 309 hitters
+#scrapper [17:10:22] - processed 4257 hitter records
+
+#scrapper [19:02:45] - reading baseball players' data whose last names start with b
+#scrapper [19:20:25] - processed 769 pitchers
+#scrapper [19:20:25] - processed 9944 pitcher records
+#scrapper [19:20:25] - processed 989 hitters
+#scrapper [19:20:25] - processed 13396 hitter records
+
+#scrapper [18:17:15] - reading baseball players' data whose last names start with c
+#scrapper [18:32:00] - processed 605 pitchers
+#scrapper [18:32:00] - processed 7473 pitcher records
+#scrapper [18:32:00] - processed 833 hitters
+#scrapper [18:32:00] - processed 11553 hitter records
+
+#scrapper [19:21:28] - reading baseball players' data whose last names start with d
+#scrapper [19:30:01] - processed 394 pitchers
+#scrapper [19:30:01] - processed 4811 pitcher records
+#scrapper [19:30:01] - processed 506 hitters
+#scrapper [19:30:01] - processed 6678 hitter records
+
+#scrapper [19:34:29] - reading baseball players' data whose last names start with e
+#scrapper [19:37:39] - processed 154 pitchers
+#scrapper [19:37:39] - processed 1866 pitcher records
+#scrapper [19:37:39] - processed 183 hitters
+#scrapper [19:37:39] - processed 2509 hitter records
+
+#scrapper [19:38:27] - reading baseball players' data whose last names start with f
+#scrapper [19:44:48] - processed 301 pitchers
+#scrapper [19:44:48] - processed 3763 pitcher records
+#scrapper [19:44:48] - processed 352 hitters
+#scrapper [19:44:48] - processed 4592 hitter records
+
+#scrapper [19:47:20] - reading baseball players' data whose last names start with g
+#scrapper [19:56:28] - processed 410 pitchers
+#scrapper [19:56:28] - processed 4986 pitcher records
+#scrapper [19:56:28] - processed 578 hitters
+#scrapper [19:56:28] - processed 8089 hitter records
+
+#scrapper [19:56:47] - reading baseball players' data whose last names start with h
+#scrapper [20:09:07] - processed 595 pitchers
+#scrapper [20:09:07] - processed 7539 pitcher records
+#scrapper [20:09:07] - processed 743 hitters
+#scrapper [20:09:07] - processed 10148 hitter records
+
+#scrapper [20:09:45] - reading baseball players' data whose last names start with i
+#scrapper [20:10:17] - processed 21 pitchers
+#scrapper [20:10:17] - processed 273 pitcher records
+#scrapper [20:10:17] - processed 36 hitters
+#scrapper [20:10:17] - processed 566 hitter records
+
+#scrapper [20:16:26] - reading baseball players' data whose last names start with j
+#scrapper [20:21:20] - processed 213 pitchers
+#scrapper [20:21:20] - processed 2842 pitcher records
+#scrapper [20:21:20] - processed 266 hitters
+#scrapper [20:21:20] - processed 3863 hitter records
+
+#scrapper [20:21:46] - reading baseball players' data whose last names start with k
+#scrapper [20:28:40] - processed 309 pitchers
+#scrapper [20:28:40] - processed 3847 pitcher records
+#scrapper [20:28:40] - processed 370 hitters
+#scrapper [20:28:40] - processed 4976 hitter records
+
+#scrapper [20:33:15] - reading baseball players' data whose last names start with l
+#scrapper [20:41:36] - processed 366 pitchers
+#scrapper [20:41:36] - processed 4831 pitcher records
+#scrapper [20:41:36] - processed 479 hitters
+#scrapper [20:41:36] - processed 6527 hitter records
+
+#scrapper [20:41:52] - reading baseball players' data whose last names start with m
+#scrapper [21:00:18] - processed 802 pitchers
+#scrapper [21:00:18] - processed 10167 pitcher records
+#scrapper [21:00:18] - processed 1113 hitters
+#scrapper [21:00:18] - processed 14738 hitter records
+
+#scrapper [21:28:21] - reading baseball players' data whose last names start with n
+#scrapper [21:31:29] - processed 145 pitchers
+#scrapper [21:31:29] - processed 1945 pitcher records
+#scrapper [21:31:29] - processed 174 hitters
+#scrapper [21:31:29] - processed 2498 hitter records
+
+#scrapper [21:32:02] - reading baseball players' data whose last names start with o
+#scrapper [21:35:21] - processed 133 pitchers
+#scrapper [21:35:21] - processed 1666 pitcher records
+#scrapper [21:35:21] - processed 206 hitters
+#scrapper [21:35:21] - processed 2921 hitter records
+
+#scrapper [21:36:11] - reading baseball players' data whose last names start with p
+#scrapper [21:44:50] - processed 410 pitchers
+#scrapper [21:44:50] - processed 5471 pitcher records
+#scrapper [21:44:50] - processed 471 hitters
+#scrapper [21:44:50] - processed 6481 hitter records
+
+#scrapper [21:45:17] - reading baseball players' data whose last names start with q
+#scrapper [21:45:44] - processed 18 pitchers
+#scrapper [21:45:44] - processed 213 pitcher records
+#scrapper [21:45:44] - processed 29 hitters
+#scrapper [21:45:44] - processed 376 hitter records
+
+#scrapper [21:46:25] - reading baseball players' data whose last names start with r
+#scrapper [21:56:17] - processed 436 pitchers
+#scrapper [21:56:17] - processed 5874 pitcher records
+#scrapper [21:56:17] - processed 573 hitters
+#scrapper [21:56:17] - processed 8048 hitter records
+
+#scrapper [21:02:16] - reading baseball players' data whose last names start with s
+#scrapper [21:19:45] - processed 771 pitchers
+#scrapper [21:19:45] - processed 9639 pitcher records
+#scrapper [21:19:45] - processed 1021 hitters
+#scrapper [21:19:45] - processed 13289 hitter records
+
+#scrapper [22:02:49] - reading baseball players' data whose last names start with t
+#scrapper [22:08:41] - processed 266 pitchers
+#scrapper [22:08:41] - processed 3344 pitcher records
+#scrapper [22:08:41] - processed 334 hitters
+#scrapper [22:08:41] - processed 4711 hitter records
+
+#scrapper [22:12:47] - reading baseball players' data whose last names start with u
+#scrapper [22:13:20] - processed 24 pitchers
+#scrapper [22:13:20] - processed 253 pitcher records
+#scrapper [22:13:20] - processed 31 hitters
+#scrapper [22:13:20] - processed 456 hitter records
+
+#scrapper [22:15:26] - reading baseball players' data whose last names start with v
+#scrapper [22:18:05] - processed 121 pitchers
+#scrapper [22:18:05] - processed 1578 pitcher records
+#scrapper [22:18:05] - processed 123 hitters
+#scrapper [22:18:05] - processed 1973 hitter records
+
+#scrapper [22:19:11] - reading baseball players' data whose last names start with w
+#scrapper [22:30:07] - processed 478 pitchers
+#scrapper [22:30:07] - processed 6043 pitcher records
+#scrapper [22:30:07] - processed 548 hitters
+#scrapper [22:30:07] - processed 7411 hitter records
+
+#scrapper [22:30:40] - reading baseball players' data whose last names start with y
+#scrapper [22:31:48] - processed 46 pitchers
+#scrapper [22:31:48] - processed 517 pitcher records
+#scrapper [22:31:48] - processed 61 hitters
+#scrapper [22:31:48] - processed 900 hitter records
+
+#scrapper [22:32:26] - reading baseball players' data whose last names start with z
+#scrapper [22:33:18] - processed 40 pitchers
+#scrapper [22:33:18] - processed 514 pitcher records
+#scrapper [22:33:18] - processed 48 hitters
+#scrapper [22:33:18] - processed 648 hitter records
+
+Players skipped
+C.B. Burns http://www.baseball-reference.com/players/b/burnsc.01.shtml
+Pat Duff http://www.baseball-reference.com/players/d/duffpa01.shtml
+Joe Evers http://www.baseball-reference.com/players/e/eversjo02.shtml
+Charlie Fallon http://www.baseball-reference.com/players/f/falloch01.shtml
+Willy Fetzer http://www.baseball-reference.com/players/f/fetzewi01.shtml
+Reddy Foster http://www.baseball-reference.com/players/f/fostere01.shtml
+Mark Kiger http://www.baseball-reference.com/players/k/kigerma01.shtml
+Fred Liese http://www.baseball-reference.com/players/l/liesefr01.shtml
+Tom Maher http://www.baseball-reference.com/players/m/maherto01.shtml
+Danny Mahoney http://www.baseball-reference.com/players/m/mahonda02.shtml
+Bill McGilvray http://www.baseball-reference.com/players/m/mcgilbi02.shtml
+Hunky Shaw http://www.baseball-reference.com/players/s/shawhu01.shtml
+Tom Tennant http://www.baseball-reference.com/players/t/tennato01.shtml
+George Tomer http://www.baseball-reference.com/players/t/tomerge01.shtml
+Harry Vahrenhorst http://www.baseball-reference.com/players/v/vahreha01.shtml
+John Vann http://www.baseball-reference.com/players/v/vannjo01.shtml
+Bert Weeden http://www.baseball-reference.com/players/w/weedebe01.shtml
+George Wheeler http://www.baseball-reference.com/players/w/wheelge02.shtml
+Jimmy Whelan http://www.baseball-reference.com/players/w/whelaji01.shtml
+George Young http://www.baseball-reference.com/players/y/youngge01.shtml
