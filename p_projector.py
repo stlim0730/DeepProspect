@@ -40,7 +40,12 @@ MINOR_YEARS = 3
 
 FILE_NAME_PREFIX = 'PitcherData_BR_'
 CSV = '.csv'
+CLF = '.clf'
 MINOR_SUFFIX = '-min'
+RAW_DATA_DIR = 'raw_data/'
+MID_PROD_DIR = 'mid_product/'
+CLF_DIR = 'classifiers/'
+
 # there shouldn't be an 'x'!
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'y', 'z']
 
@@ -168,10 +173,10 @@ def predict(classifier, inputList):
 #       correctCnt += 1
 #     else:
 #       wrongCnt += 1
-#   print "\n* Prediction Accuracy"
-#   print " correct", correctCnt
-#   print " wrong", wrongCnt
-#   print " accuracy", 100 * correctCnt / (correctCnt + wrongCnt)
+#   print '\n* Prediction Accuracy'
+#   print ' correct', correctCnt
+#   print ' wrong', wrongCnt
+#   print ' accuracy', 100 * correctCnt / (correctCnt + wrongCnt)
 
 # START PARSING COMMAND LINE ARGUMENTS
 target_letters = []
@@ -186,15 +191,15 @@ timed_log(target_letters)
 # df = pd.DataFrame()
 # for letter in target_letters:
 #   file_name = FILE_NAME_PREFIX + letter + CSV
-#   temp_df = pd.read_csv(file_name)
+#   temp_df = pd.read_csv(RAW_DATA_DIR + file_name)
 #   pieces = [df, temp_df]
 #   df = pd.concat(pieces)
 # timed_log('Dataset Size:', len(df))
-# df.to_csv('whole' + CSV)
+# df.to_csv(MID_PROD_DIR + 'whole' + CSV)
 # END LOADING DATA AND CONCATINATING DATAFRAMES
 
 # START SEPARATING MiLB DATA FROM MLB DATA
-# df = pd.DataFrame.from_csv('whole' + CSV)
+# df = pd.DataFrame.from_csv(MID_PROD_DIR + 'whole' + CSV)
 # minor_list = []
 # major_list = []
 # for index, row in df.iterrows():
@@ -207,13 +212,13 @@ timed_log(target_letters)
 # major_df = pd.DataFrame.from_records(major_list)
 # timed_log('MiLB Dataset Size:', len(minor_df))
 # timed_log('MLB Dataset Size:', len(major_df))
-# minor_df.to_csv('minor' + CSV)
-# major_df.to_csv('major' + CSV)
+# minor_df.to_csv(MID_PROD_DIR + 'minor' + CSV)
+# major_df.to_csv(MID_PROD_DIR + 'major' + CSV)
 # END SEPARATING MiLB DATA FROM MLB DATA
 
 # START AGGREGATING MiLB DATA PER PLAYER
-# minor_df = pd.DataFrame.from_csv('minor' + CSV)
-# major_df = pd.DataFrame.from_csv('major' + CSV)
+# minor_df = pd.DataFrame.from_csv(MID_PROD_DIR + 'minor' + CSV)
+# major_df = pd.DataFrame.from_csv(MID_PROD_DIR + 'major' + CSV)
 # minor_agg_list = []
 # past_pid = None
 # minor_agg_record_cnt = 0
@@ -225,10 +230,10 @@ timed_log(target_letters)
 #       continue
 #     else:
 #       # WE HAVE A NEW PLAYER
-#       player_minor_df = minor_df.query('PID == "' + current_pid + '"', engine='python')
+#       player_minor_df = minor_df.query('PID == '' + current_pid + ''', engine='python')
 #       if len(player_minor_df) == 0:
 #         continue
-#       player_major_df = major_df.query('PID == "' + current_pid + '"', engine='python')
+#       player_major_df = major_df.query('PID == '' + current_pid + ''', engine='python')
 #       player_minor_agg_record = aggregate(player_minor_df, MINOR_COPY, MINOR_PER_YEAR)
 #       player_major_agg_record = aggregate(player_major_df, MAJOR_COPY, MAJOR_PER_YEAR)
 #       player_minor_agg_record['WAR'] = player_major_agg_record['WAR']
@@ -237,11 +242,11 @@ timed_log(target_letters)
 #       past_pid = current_pid
 # timed_log(minor_agg_record_cnt, len(minor_agg_list))
 # minor_agg_df = pd.DataFrame.from_records(minor_agg_list)
-# minor_agg_df.to_csv('minor_agg' + CSV)
+# minor_agg_df.to_csv(MID_PROD_DIR + 'minor_agg' + CSV)
 # END AGGREGATING MiLB DATA PER PLAYER
 
 # START VALIDATE & LABELING
-# minor_agg_df = pd.DataFrame.from_csv('minor_agg' + CSV)
+# minor_agg_df = pd.DataFrame.from_csv(MID_PROD_DIR + 'minor_agg' + CSV)
 # minor_agg_df = pd.DataFrame(minor_agg_df, columns=DEFAULT_AGGR_RECORD.keys() + ['WARover8', 'WARover5', 'WARover2', 'WARover0'])
 # minor_agg_df.fillna('', inplace=True)
 # for index, row in minor_agg_df.iterrows():
@@ -268,118 +273,236 @@ timed_log(target_letters)
 #     row['WARover0'] = 1
 #   else:
 #     row['WARover0'] = 0
-# minor_agg_df.to_csv('minor_ready' + CSV, columns=DEFAULT_AGGR_RECORD.keys() + ['WARover8', 'WARover5', 'WARover2', 'WARover0'])
+# minor_agg_df.to_csv(MID_PROD_DIR + 'minor_ready' + CSV, columns=DEFAULT_AGGR_RECORD.keys() + ['WARover8', 'WARover5', 'WARover2', 'WARover0'])
 # timed_log('done')
 # END VALIDATE & LABELING
 
 # START TRAINING
-minor_ready_df = pd.DataFrame.from_csv('minor_ready' + CSV)
+minor_ready_df = pd.DataFrame.from_csv(MID_PROD_DIR + 'minor_ready' + CSV)
 minor_ready_df = shuffle_df(minor_ready_df)
-train_size = int(math.floor(len(minor_ready_df) * 0.8))
-test_size = len(minor_ready_df) - train_size
-timed_log('Size of the dataset:', len(minor_ready_df))
-timed_log('Size of the training set:', train_size)
-timed_log('Size of the test set:', test_size)
-train_df = minor_ready_df.iloc[:train_size]
-test_df = minor_ready_df.iloc[train_size:]
-train_df.to_csv('train_all_feat.csv')
-test_df.to_csv('test_all_feat.csv')
-train_input = []
-train_predict_8 = train_df['WARover8'].tolist()
-train_predict_5 = train_df['WARover5'].tolist()
-train_predict_2 = train_df['WARover2'].tolist()
-train_predict_0 = train_df['WARover0'].tolist()
-for index, row in train_df.iterrows():
-  del row['PID']
-  del row['NAME']
-  del row['WAR']
-  del row['WARover8']
-  del row['WARover5']
-  del row['WARover2']
-  del row['WARover0']
-  train_input.append(row)
-clf8 = getTrainedSVM(train_input, train_predict_8)
-pickle.dump(clf8, open('clf8_all_feat.clf', 'wb'))
-timed_log('8 training done')
-clf5 = getTrainedSVM(train_input, train_predict_5)
-pickle.dump(clf5, open('clf5_all_feat.clf', 'wb'))
-timed_log('5 training done')
-clf2 = getTrainedSVM(train_input, train_predict_2)
-pickle.dump(clf2, open('clf2_all_feat.clf', 'wb'))
-timed_log('2 training done')
-clf0 = getTrainedSVM(train_input, train_predict_0)
-pickle.dump(clf0, open('clf0_all_feat.clf', 'wb'))
-timed_log('0 training done')
+size_of_one_fifth = int(math.floor(len(minor_ready_df) / 5))
+folds = []
+for i in range(5):
+  if i < 4:
+    folds.append(minor_ready_df.iloc[(size_of_one_fifth * i) : (size_of_one_fifth * (i+1))])
+  else:
+    folds.append(minor_ready_df.iloc[(size_of_one_fifth * i) : ])
+for i in range(len(folds)):
+  test_df = folds[i]
+  test_size = len(test_df)
+  train_df = None
+  pieces = []
+  for j in range(len(folds)):
+    if j == i:
+      continue
+    pieces.append(folds[j])
+  train_df = pd.concat(pieces)
+  train_size = len(train_df)
+  timed_log('\n' + 'Cross Validation Phase ' + str(i+1))
+  timed_log('Size of the dataset:', len(minor_ready_df))
+  timed_log('Size of the training set:', train_size)
+  timed_log('Size of the test set:', test_size)
+  train_df.to_csv(MID_PROD_DIR + 'train_all_feat_cv_' + str(i+1) + CSV)
+  test_df.to_csv(MID_PROD_DIR + 'test_all_feat_cv_' + str(i+1) + CSV)
+  train_input = []
+  train_predict_8 = train_df['WARover8'].tolist()
+  train_predict_5 = train_df['WARover5'].tolist()
+  train_predict_2 = train_df['WARover2'].tolist()
+  train_predict_0 = train_df['WARover0'].tolist()
+  for index, row in train_df.iterrows():
+    del row['PID']
+    del row['NAME']
+    del row['WAR']
+    del row['WARover8']
+    del row['WARover5']
+    del row['WARover2']
+    del row['WARover0']
+    train_input.append(row)
+  clf8 = getTrainedSVM(train_input, train_predict_8)
+  pickle.dump(clf8, open(CLF_DIR + 'clf8_all_feat_cv_' + str(i+1) + CLF, 'wb'))
+  timed_log('8 training done')
+  clf5 = getTrainedSVM(train_input, train_predict_5)
+  pickle.dump(clf5, open(CLF_DIR + 'clf5_all_feat_cv_' + str(i+1) + CLF, 'wb'))
+  timed_log('5 training done')
+  clf2 = getTrainedSVM(train_input, train_predict_2)
+  pickle.dump(clf2, open(CLF_DIR + 'clf2_all_feat_cv_' + str(i+1) + CLF, 'wb'))
+  timed_log('2 training done')
+  clf0 = getTrainedSVM(train_input, train_predict_0)
+  pickle.dump(clf0, open(CLF_DIR + 'clf0_all_feat_cv_' + str(i+1) + CLF, 'wb'))
+  timed_log('0 training done')
 # END TRAINING
-
 # START TESTING
-test_df = pd.DataFrame.from_csv('test_all_feat.csv')
-label_8 = test_df['WARover8'].tolist()
-label_5 = test_df['WARover5'].tolist()
-label_2 = test_df['WARover2'].tolist()
-label_0 = test_df['WARover0'].tolist()
-test_input = []
-for index, row in test_df.iterrows():
-  del row['PID']
-  del row['NAME']
-  del row['WAR']
-  del row['WARover8']
-  del row['WARover5']
-  del row['WARover2']
-  del row['WARover0']
-  test_input.append(row)
-
-clf8 = pickle.load(open('clf8_all_feat.clf', 'rb'))
-pred_8_res = predict(clf8, test_input)
-correct_cnt = 0
-wrong_cnt = 0
-for i in range(len(pred_8_res)):
-  if label_8[i] == pred_8_res[i]:
-    correct_cnt += 1
-  else:
-    wrong_cnt += 1
-timed_log("correct", correct_cnt)
-timed_log("wrong", wrong_cnt)
-timed_log("accuracy", 100 * correct_cnt / (correct_cnt + wrong_cnt))
-
-clf5 = pickle.load(open('clf5_all_feat.clf', 'rb'))
-pred_5_res = predict(clf5, test_input)
-correct_cnt = 0
-wrong_cnt = 0
-for i in range(len(pred_5_res)):
-  if label_5[i] == pred_5_res[i]:
-    correct_cnt += 1
-  else:
-    wrong_cnt += 1
-timed_log("correct", correct_cnt)
-timed_log("wrong", wrong_cnt)
-timed_log("accuracy", 100 * correct_cnt / (correct_cnt + wrong_cnt))
-
-clf2 = pickle.load(open('clf2_all_feat.clf', 'rb'))
-pred_2_res = predict(clf2, test_input)
-correct_cnt = 0
-wrong_cnt = 0
-for i in range(len(pred_2_res)):
-  if label_2[i] == pred_2_res[i]:
-    correct_cnt += 1
-  else:
-    wrong_cnt += 1
-timed_log("correct", correct_cnt)
-timed_log("wrong", wrong_cnt)
-timed_log("accuracy", 100 * correct_cnt / (correct_cnt + wrong_cnt))
-
-clf0 = pickle.load(open('clf0_all_feat.clf', 'rb'))
-pred_0_res = predict(clf0, test_input)
-correct_cnt = 0
-wrong_cnt = 0
-for i in range(len(pred_0_res)):
-  if label_0[i] == pred_0_res[i]:
-    correct_cnt += 1
-  else:
-    wrong_cnt += 1
-timed_log("correct", correct_cnt)
-timed_log("wrong", wrong_cnt)
-timed_log("accuracy", 100 * correct_cnt / (correct_cnt + wrong_cnt))
+  # test_df = pd.DataFrame.from_csv(MID_PROD_DIR + 'test_all_feat.csv')
+  label_8 = test_df['WARover8'].tolist()
+  label_5 = test_df['WARover5'].tolist()
+  label_2 = test_df['WARover2'].tolist()
+  label_0 = test_df['WARover0'].tolist()
+  test_input = []
+  for index, row in test_df.iterrows():
+    del row['PID']
+    del row['NAME']
+    del row['WAR']
+    del row['WARover8']
+    del row['WARover5']
+    del row['WARover2']
+    del row['WARover0']
+    test_input.append(row)
+  # clf8 = pickle.load(open(CLF_DIR + 'clf8_all_feat.clf', 'rb'))
+  pred_8_res = predict(clf8, test_input)
+  P = 0
+  N = 0
+  TP = 0
+  TN = 0
+  FP = 0
+  FN = 0
+  for i in range(len(pred_8_res)):
+    if label_8[i] == pred_8_res[i]:
+      if label_8[i] == 1:
+        P += 1
+        TP += 1
+      else:
+        N += 1
+        TN += 1
+    else:
+      if label_8[i] == 0:
+        N += 1
+        FP += 1
+      else:
+        P += 1
+        FN += 1
+  timed_log('8 testing results')
+  timed_log('P', P)
+  timed_log('N', N)
+  timed_log('TP', TP)
+  timed_log('TN', TN)
+  timed_log('FP', FP)
+  timed_log('FN', FN)
+  timed_log('Accuracy', (TP + TN) / (P + N))
+  timed_log('Error', (FP + FN) / (P + N))
+  timed_log('Sensitivity', TP / P)
+  timed_log('Specificity', TN / N)
+  Precision = TP / (TP + FP)
+  Recall = TP / P
+  timed_log('Precision', Precision)
+  timed_log('Recall', Recall)
+  timed_log('F', (2 * (Precision * Recall)) / (Precision + Recall))
+  # clf5 = pickle.load(open(CLF_DIR + 'clf5_all_feat.clf', 'rb'))
+  pred_5_res = predict(clf5, test_input)
+  P = 0
+  N = 0
+  TP = 0
+  TN = 0
+  FP = 0
+  FN = 0
+  for i in range(len(pred_5_res)):
+    if label_5[i] == pred_5_res[i]:
+      if label_5[i] == 1:
+        P += 1
+        TP += 1
+      else:
+        N += 1
+        TN += 1
+    else:
+      if label_5[i] == 0:
+        N += 1
+        FP += 1
+      else:
+        P += 1
+        FN += 1
+  timed_log('5 testing results')
+  timed_log('P', P)
+  timed_log('N', N)
+  timed_log('TP', TP)
+  timed_log('TN', TN)
+  timed_log('FP', FP)
+  timed_log('FN', FN)
+  timed_log('Accuracy', (TP + TN) / (P + N))
+  timed_log('Error', (FP + FN) / (P + N))
+  timed_log('Sensitivity', TP / P)
+  timed_log('Specificity', TN / N)
+  Precision = TP / (TP + FP)
+  Recall = TP / P
+  timed_log('Precision', Precision)
+  timed_log('Recall', Recall)
+  timed_log('F', (2 * (Precision * Recall)) / (Precision + Recall))
+  # clf2 = pickle.load(open(CLF_DIR + 'clf2_all_feat.clf', 'rb'))
+  pred_2_res = predict(clf2, test_input)
+  P = 0
+  N = 0
+  TP = 0
+  TN = 0
+  FP = 0
+  FN = 0
+  for i in range(len(pred_2_res)):
+    if label_2[i] == pred_2_res[i]:
+      if label_2[i] == 1:
+        P += 1
+        TP += 1
+      else:
+        N += 1
+        TN += 1
+    else:
+      if label_2[i] == 0:
+        N += 1
+        FP += 1
+      else:
+        P += 1
+        FN += 1
+  timed_log('2 testing results')
+  timed_log('P', P)
+  timed_log('N', N)
+  timed_log('TP', TP)
+  timed_log('TN', TN)
+  timed_log('FP', FP)
+  timed_log('FN', FN)
+  timed_log('Accuracy', (TP + TN) / (P + N))
+  timed_log('Error', (FP + FN) / (P + N))
+  timed_log('Sensitivity', TP / P)
+  timed_log('Specificity', TN / N)
+  Precision = TP / (TP + FP)
+  Recall = TP / P
+  timed_log('Precision', Precision)
+  timed_log('Recall', Recall)
+  timed_log('F', (2 * (Precision * Recall)) / (Precision + Recall))
+  # clf0 = pickle.load(open(CLF_DIR + 'clf0_all_feat.clf', 'rb'))
+  pred_0_res = predict(clf0, test_input)
+  P = 0
+  N = 0
+  TP = 0
+  TN = 0
+  FP = 0
+  FN = 0
+  for i in range(len(pred_0_res)):
+    if label_0[i] == pred_0_res[i]:
+      if label_0[i] == 1:
+        P += 1
+        TP += 1
+      else:
+        N += 1
+        TN += 1
+    else:
+      if label_0[i] == 0:
+        N += 1
+        FP += 1
+      else:
+        P += 1
+        FN += 1
+  timed_log('0 testing results')
+  timed_log('P', P)
+  timed_log('N', N)
+  timed_log('TP', TP)
+  timed_log('TN', TN)
+  timed_log('FP', FP)
+  timed_log('FN', FN)
+  timed_log('Accuracy', (TP + TN) / (P + N))
+  timed_log('Error', (FP + FN) / (P + N))
+  timed_log('Sensitivity', TP / P)
+  timed_log('Specificity', TN / N)
+  Precision = TP / (TP + FP)
+  Recall = TP / P
+  timed_log('Precision', Precision)
+  timed_log('Recall', Recall)
+  timed_log('F', (2 * (Precision * Recall)) / (Precision + Recall))
 # END TESTING
 
 # testInput = combineInputs(testSetDf, featuresTest)
